@@ -30,16 +30,51 @@ iphone11 = Product("Iphone 11", 35000, 13, "mobile")
 casio_gshock = Product("G-Shock 5600", 6000, 34, "watch")
 macbookpro = Product("Apple MacBook PRO m2", 150000, 3, "laptop")
 
-macbookpro.info()
 
-iphone11.info()
+class ShopingCart:
+    def __init__(self):
+        self.items = []
+    def add_product(self, product, quantity):
+        self.items.append([product, quantity])
+        print(f'✅ В корзину добавили {product.name}, в количестве {quantity} ')
 
-iphone11.restock(34)
+    def info(self):
+        print('=' * 40)
+        print('🛒 СОДЕРЖИМОЕ КОРЗИНЫ:')
+        print('=' * 40)
 
-iphone11.info()
+        total = 0
+        for item in self.items:
+            product = item[0]  # объект Product
+            quantity = item[1]  # количество
+            price = product.price * quantity
+            total += price
+            print(f'• {product.name} x {quantity} = {price} ₽')
 
-iphone11.sell(13)
+        print('=' * 40)
+        print(f'💰 ИТОГО: {total} ₽')
+        print('=' * 40)
 
-iphone11.apply_discount(5)
+    def remove_product(self, product, quantity):
+        for item in self.items:
+            if item[0] == product:  # нашли товар
+                if quantity >= item[1]:  # если удаляем всё
+                    self.items.remove(item)
+                    print(f'✅ Товар "{product.name}" полностью удалён из корзины')
+                else:  # удаляем часть
+                    item[1] -= quantity
+                    print(f'✅ Количество товара "{product.name}" уменьшено на {quantity}')
+                return
 
-iphone11.info()
+        print(f'❌ Товар "{product.name}" не найден в корзине')
+
+
+
+
+
+
+cart1 = ShopingCart()
+cart1.add_product(macbookpro, 1)
+cart1.add_product(iphone11, 3)
+cart1.remove_product(iphone11, 1)
+cart1.info()
