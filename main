@@ -1,1 +1,45 @@
-Hello world
+class Product:
+    def __init__(self, name, price, quantity, category):
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+        self.category = category
+    def apply_discount(self, percent):
+        if percent >= 100:
+            print("Введена некорректная скидка")
+            return
+        self.price = round(self.price * (100 - percent) / 100, 2)
+        print(f'Цена со скидкой составляет {self.price}')
+    def sell(self, amount):
+        if amount > self.quantity:
+            print(f'Ошибка - на складе всего {self.quantity}')
+            return
+        self.quantity -= amount
+        print(f'Продано {amount} штук, остаток на складе - {self.quantity}')
+    def restock(self, amount):
+        self.quantity += amount
+        print(f'Заприходовано {amount} штук, остаток на складе - {self.quantity}')
+    def info(self):
+        print("=" * 40)
+        print(f'наименование товара: {self.name}')
+        print(f'цена товара: {self.price}')
+        print(f'количество на складе: {self.quantity}')
+        print(f'категория товара: {self.category}')
+
+iphone11 = Product("Iphone 11", 35000, 13, "mobile")
+casio_gshock = Product("G-Shock 5600", 6000, 34, "watch")
+macbookpro = Product("Apple MacBook PRO m2", 150000, 3, "laptop")
+
+macbookpro.info()
+
+iphone11.info()
+
+iphone11.restock(34)
+
+iphone11.info()
+
+iphone11.sell(13)
+
+iphone11.apply_discount(5)
+
+iphone11.info()
