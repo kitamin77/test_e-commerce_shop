@@ -8,6 +8,7 @@ class Product:
     @property
     def price(self):
         return self.__price
+
     @price.setter
     def price(self, new_price):
         if new_price <= 0:
@@ -17,12 +18,12 @@ class Product:
     @property
     def quantity(self):
         return self.__quantity
+
     @quantity.setter
     def quantity(self, new_quantity):
         if new_quantity < 0:
             raise ValueError("Количество не может быть отрицательным")
         self.__quantity = new_quantity
-
 
     def apply_discount(self, percent):
         if percent >= 100:
@@ -30,39 +31,44 @@ class Product:
             return
         self.price = round(self.price * (100 - percent) / 100, 2)
         print(f'Цена со скидкой составляет {self.price}')
+
     def sell(self, amount):
         if amount > self.quantity:
             raise ValueError(f'❌Ошибка - на складе всего {self.quantity}')
         self.quantity -= amount
         print(f'Продано {amount} штук, остаток на складе - {self.quantity}')
+
     def restock(self, amount):
         self.quantity += amount
         print(f'Заприходовано {amount} штук, остаток на складе - {self.quantity}')
+
     def info(self):
         print("=" * 40)
         print(f'наименование товара: {self.name}')
         print(f'цена товара: {self.price}')
         print(f'количество на складе: {self.quantity}')
         print(f'категория товара: {self.category}')
-    
-
 
 
 class Electronics(Product):
     def __init__(self, name, price, quantity, category, months):
         super().__init__(name, price, quantity, category)
         self.warranty = months
+
     @property
     def warranty(self):
         return self.__warranty
+
     @warranty.setter
     def warranty(self, new_warranty):
         if new_warranty < 0:
             raise ValueError("Гарантийный срок не может быть отрицательным")
         self.__warranty = new_warranty
+
     def info(self):
         super().info()
         print(f'гарантия на товар: {self.warranty}')
+
 
 class Book(Product):
     def __init__(self, name, price, quantity, category, autor, pages):
@@ -79,9 +85,11 @@ class Book(Product):
         if new_pages <= 0:
             raise ValueError('Количество страниц должно быть больше нуля')
         self.__pages = new_pages
+
     @property
     def autor(self):
         return self.__autor
+
     @autor.setter
     def autor(self, new_autor):
         if not isinstance(new_autor, str):
@@ -95,9 +103,11 @@ class Book(Product):
         print(f'Автор книги: {self.autor}')
         print(f'Количество страниц: {self.pages}')
 
+
 class ShopingCart:
     def __init__(self):
         self.items = []
+
     def add_product(self, product, quantity):
 
         for item in self.items:
@@ -107,7 +117,6 @@ class ShopingCart:
                 return
         else:
             self.items.append([product, quantity])
-
 
         print(f'✅ В корзину добавили {product.name}, в количестве {quantity} ')
 
@@ -168,11 +177,6 @@ class ShopingCart:
         print(f'💰 ИТОГО: {total} ₽')
         print('=' * 40)
         print(f'СПАСИБО ЗА ПОКУПКУ! ЖДЁМ ВАС СНОВА')
-
-
-
-
-
 
 
 iphone11 = Product("Iphone 11", 35000, 130, "mobile")
