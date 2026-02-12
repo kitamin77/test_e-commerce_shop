@@ -4,6 +4,26 @@ class Product:
         self.price = price
         self.quantity = quantity
         self.category = category
+
+    @property
+    def price(self):
+        return self.__price
+    @price.setter
+    def price(self, new_price):
+        if new_price <= 0:
+            raise ValueError("Цена не может быть нулевой или отрицательной")
+        self.__price = round(new_price, 2)
+
+    @property
+    def quantity(self):
+        return self.__quantity
+    @quantity.setter
+    def quantity(self, new_quantity):
+        if new_quantity < 0:
+            raise ValueError("Количество не может быть отрицательным")
+        self.__quantity = new_quantity
+
+
     def apply_discount(self, percent):
         if percent >= 100:
             print("Введена некорректная скидка")
@@ -122,6 +142,9 @@ cart1.add_product(iphone11, 15)
 cart1.add_product(casio_gshock, 10)
 # cart1.remove_product(iphone11, 1)
 # cart1.add_product(casio_gshock, 3)
+cart1.info()
+macbookpro.price = 9999
+iphone11.price = -123
 cart1.info()
 cart1.checkout()
 cart1.info()
