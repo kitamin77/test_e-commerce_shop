@@ -1,6 +1,7 @@
 class Product:
+
     def __init__(self, name, price, quantity, category):
-        self.name = name
+        self.name = Product.valid_name(name)
         self.price = price
         self.quantity = quantity
         self.category = category
@@ -45,9 +46,23 @@ class Product:
     def info(self):
         print("=" * 40)
         print(f'наименование товара: {self.name}')
-        print(f'цена товара: {self.price}')
+        print(f'цена товара: {self.price}{Product.unit}')
         print(f'количество на складе: {self.quantity}')
         print(f'категория товара: {self.category}')
+
+    @staticmethod
+    def valid_name(name):
+        if name == "" or len(name) < 3:
+            raise ValueError('Хуйня, а не имя, давай другое')
+        return name
+
+    unit = "₽"
+
+    def __str__(self):
+        return f'{self.name}, {self.price}'
+
+    def __repr__(self):
+        return f'{self.name}, {self.price}, {self.category}'
 
 
 class Electronics(Product):
@@ -179,6 +194,10 @@ class ShopingCart:
         print(f'СПАСИБО ЗА ПОКУПКУ! ЖДЁМ ВАС СНОВА')
 
 
+
+ipad = Electronics("Ipad", 35000, 13, "tablet", 24)
+ipad.info()
+
 iphone11 = Product("Iphone 11", 35000, 130, "mobile")
 casio_gshock = Product("G-Shock 5600", 6000, 340, "watch")
 macbookpro = Product("Apple MacBook PRO m2", 150000, 377, "laptop")
@@ -200,6 +219,5 @@ cart1.add_product(casio_gshock, 10)
 # cart1.add_product(casio_gshock, 3)
 cart1.info()
 macbookpro.price = 9999
-iphone11.price = 123
-cart1.info()
-cart1.checkout()
+print(cart1.items)
+print(iphone11)
