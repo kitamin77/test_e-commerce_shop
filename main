@@ -64,6 +64,16 @@ class Product:
     def __repr__(self):
         return f'{self.name}, {self.price}, {self.category}'
 
+    def __eq__(self, other):
+        if not isinstance(other, Product):
+            return False
+        return self.name == other.name and self.price == other.price
+
+    def __lt__(self, other):
+        if not isinstance(other, Product):
+            return False
+        return self.price < other.price
+
 
 class Electronics(Product):
     def __init__(self, name, price, quantity, category, months):
@@ -199,6 +209,7 @@ ipad = Electronics("Ipad", 35000, 13, "tablet", 24)
 ipad.info()
 
 iphone11 = Product("Iphone 11", 35000, 130, "mobile")
+iphone12 = Product("Iphone 12", 36000, 130, "mobile")
 casio_gshock = Product("G-Shock 5600", 6000, 340, "watch")
 macbookpro = Product("Apple MacBook PRO m2", 150000, 377, "laptop")
 
@@ -220,4 +231,4 @@ cart1.add_product(casio_gshock, 10)
 cart1.info()
 macbookpro.price = 9999
 print(cart1.items)
-print(iphone11)
+print(iphone11 < iphone12)
